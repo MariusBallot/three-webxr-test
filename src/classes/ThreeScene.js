@@ -15,7 +15,7 @@ class ThreeScene {
     }
 
     init() {
-        this.renderer = new THREE.WebGLRenderer({ alpha: true })
+        this.renderer = new THREE.WebGLRenderer({})
         this.renderer.setSize(window.innerWidth, window.innerHeight)
         this.renderer.debug.checkShaderErrors = true
         document.body.appendChild(this.renderer.domElement)
@@ -23,19 +23,26 @@ class ThreeScene {
         this.scene = new THREE.Scene()
 
         this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
-        this.camera.position.set(0, 0, 5)
-        this.controls = new OrbitControls(this.camera, this.renderer.domElement)
-        this.controls.enabled = true
-        this.controls.maxDistance = 1500
-        this.controls.minDistance = 0
+        // this.camera.position.set(0, 0, 5)
+        // this.controls = new OrbitControls(this.camera, this.renderer.domElement)
+        // this.controls.enabled = true
+        // this.controls.maxDistance = 1500
+        // this.controls.minDistance = 0
 
         let light = new THREE.AmbientLight()
         let pointLight = new THREE.PointLight()
         pointLight.position.set(10, 10, 0)
         this.scene.add(light, pointLight)
 
-        const cube = new THREE.Mesh(new THREE.BoxGeometry(), new THREE.MeshNormalMaterial())
-        this.scene.add(cube)
+        for (let i = 0; i < Math.PI * 2; i += Math.PI * 2 / 20) {
+            let cube = new THREE.Mesh(new THREE.BoxGeometry(), new THREE.MeshNormalMaterial())
+            let radius = 10
+            let x = Math.cos(i) * radius
+            let z = Math.sin(i) * radius
+
+            cube.position.set(x, 0, z)
+            this.scene.add(cube)
+        }
 
         window.addEventListener("resize", this.resizeCanvas)
         // RAF.subscribe('threeSceneUpdate', this.update)

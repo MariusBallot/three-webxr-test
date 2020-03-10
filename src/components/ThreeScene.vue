@@ -11,6 +11,7 @@ import WebXRController from "@/controllers/WebXRController";
 export default {
   name: "ThreeScene",
   mounted() {
+    // ThreeScene.init();
     WebXRController.initXR();
   },
   methods: {
